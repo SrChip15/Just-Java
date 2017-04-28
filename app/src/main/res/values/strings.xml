@@ -4,4 +4,6 @@
     <string name="order_amount">0</string>
     <string name="price">price</string>
     <string name="button_text">order</string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
 </resources>
