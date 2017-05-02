@@ -2,7 +2,7 @@
     <string name="app_name">JustJava</string>
     <string name="quantity">quantity</string>
     <string name="order_amount">0</string>
-    <string name="price">price</string>
+    <string name="order_sum">order summary</string>
     <string name="button_text">order</string>
     <string name="increment">+</string>
     <string name="decrement">-</string>
