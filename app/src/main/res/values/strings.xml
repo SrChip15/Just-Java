@@ -6,4 +6,6 @@
     <string name="button_text">order</string>
     <string name="increment">+</string>
     <string name="decrement">-</string>
+    <string name="cream">Whipped Cream</string>
+    <string name="top">toppings</string>
 </resources>

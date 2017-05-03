@@ -3,6 +3,7 @@ package com.example.android.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private int quantity = 0;
     private static final int COFFEE_PRICE = 5;
-    // private static final int CUP_PRICE = 1;
+    private static final int CREAM_PRICE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int total = calculatePrice();
-        //String priceMessage = "Total: $" + total + "\nThank you!";
-        displayMessage(createOrderSummary(total));
+        CheckBox checkForCream = (CheckBox) findViewById(R.id.checkbox);
+        boolean hasWhippedCream = checkForCream.isChecked();
+        int total = calculatePrice(hasWhippedCream);
+        displayMessage(createOrderSummary(total, hasWhippedCream));
     }
 
     /**
@@ -66,12 +68,25 @@ public class MainActivity extends AppCompatActivity {
         orderSummaryTextView.setText(message);
     }
 
-    private int calculatePrice() {
-        return quantity * COFFEE_PRICE;
+    /**
+     *
+     * @param hasCream a boolean to add whipped cream or not
+     * @return an int that indicates the total price of the coffee
+     */
+    private int calculatePrice(boolean hasCream) {
+        return hasCream ? quantity * (COFFEE_PRICE + CREAM_PRICE) : quantity * COFFEE_PRICE;
     }
 
-    private String createOrderSummary(int orderTotal) {
-        return "Name: Kaptain Kunal\nQuantity: " + quantity + "\nTotal: $" + orderTotal +
+    /**
+     *
+     * @param orderTotal an int that indicates the total price of the coffee
+     * @param hasCream a boolean that indicates whether or not whipped cream is to be added to coffee(s)
+     * @return a String that lists the order summary one item per line
+     */
+    private String createOrderSummary(int orderTotal, boolean hasCream) {
+        String cream = hasCream? "Yes" : "No";
+        return "Name: Kaptain Kunal\nQuantity: " + quantity + "\nCream: " + cream + "\nTotal: $" + orderTotal +
                 "\nThank you!";
     }
+
 }
