@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private int quantity = 0;
     private static final int COFFEE_PRICE = 5;
     private static final int CREAM_PRICE = 2;
+    private static final int CHOCOLATE_PRICE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        CheckBox checkForCream = (CheckBox) findViewById(R.id.checkbox);
+        CheckBox checkForCream = (CheckBox) findViewById(R.id.cream_checkbox);
         boolean hasWhippedCream = checkForCream.isChecked();
-        int total = calculatePrice(hasWhippedCream);
-        displayMessage(createOrderSummary(total, hasWhippedCream));
+        CheckBox checkForChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = checkForChocolate.isChecked();
+        int total = calculatePrice(hasWhippedCream, hasChocolate);
+        displayMessage(createOrderSummary(total, hasWhippedCream, hasChocolate));
     }
 
     /**
@@ -70,22 +73,29 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     * @param hasCream a boolean to add whipped cream or not
+     * @param hasCream a boolean for whether or not the user wants whipped cream
+     * @param hasChocolate a boolean for whether or not the user wants chocolate
      * @return an int that indicates the total price of the coffee
+     *
      */
-    private int calculatePrice(boolean hasCream) {
-        return hasCream ? quantity * (COFFEE_PRICE + CREAM_PRICE) : quantity * COFFEE_PRICE;
+    private int calculatePrice(boolean hasCream, boolean hasChocolate) {
+        int price = quantity * COFFEE_PRICE;
+        if (hasCream) price += quantity * CREAM_PRICE;
+        if (hasChocolate) price += quantity * CHOCOLATE_PRICE;
+        return price;
     }
 
     /**
      *
      * @param orderTotal an int that indicates the total price of the coffee
-     * @param hasCream a boolean that indicates whether or not whipped cream is to be added to coffee(s)
+     * @param hasCream a boolean for whether or not the user wants whipped cream
+     * @param hasChocolate a boolean for whether or not the user wants chocolate
      * @return a String that lists the order summary one item per line
      */
-    private String createOrderSummary(int orderTotal, boolean hasCream) {
+    private String createOrderSummary(int orderTotal, boolean hasCream, boolean hasChocolate) {
         String cream = hasCream? "Yes" : "No";
-        return "Name: Kaptain Kunal\nQuantity: " + quantity + "\nCream: " + cream + "\nTotal: $" + orderTotal +
+        String chocolate = hasChocolate ? "Yes" : "No";
+        return "Name: Kaptain Kunal\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
                 "\nThank you!";
     }
 
