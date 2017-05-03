@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private int quantity = 0;
     private static final int COFFEE_PRICE = 5;
-    private static final int CREAM_PRICE = 2;
-    private static final int CHOCOLATE_PRICE = 3;
+    private static final int CREAM_PRICE = 1;
+    private static final int CHOCOLATE_PRICE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,28 +76,28 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     * @param hasCream a boolean for whether or not the user wants whipped cream
-     * @param hasChocolate a boolean for whether or not the user wants chocolate
+     * @param addCream a boolean for whether or not the user wants whipped cream
+     * @param addChocolate a boolean for whether or not the user wants chocolate
      * @return an int that indicates the total price of the coffee
      *
      */
-    private int calculatePrice(boolean hasCream, boolean hasChocolate) {
+    private int calculatePrice(boolean addCream, boolean addChocolate) {
         int price = quantity * COFFEE_PRICE;
-        if (hasCream) price += quantity * CREAM_PRICE;
-        if (hasChocolate) price += quantity * CHOCOLATE_PRICE;
+        if (addCream) price += quantity * CREAM_PRICE;
+        if (addChocolate) price += quantity * CHOCOLATE_PRICE;
         return price;
     }
 
     /**
      *
      * @param orderTotal an int that indicates the total price of the coffee
-     * @param hasCream a boolean for whether or not the user wants whipped cream
-     * @param hasChocolate a boolean for whether or not the user wants chocolate
+     * @param addCream a boolean for whether or not the user wants whipped cream
+     * @param addChocolate a boolean for whether or not the user wants chocolate
      * @return a String that lists the order summary one item per line
      */
-    private String createOrderSummary(int orderTotal, boolean hasCream, boolean hasChocolate, String name) {
-        String cream = hasCream? "Yes" : "No";
-        String chocolate = hasChocolate ? "Yes" : "No";
+    private String createOrderSummary(int orderTotal, boolean addCream, boolean addChocolate, String name) {
+        String cream = addCream? "Yes" : "No";
+        String chocolate = addChocolate ? "Yes" : "No";
         return "Name: " + name + "\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
                 "\nThank you!";
     }
