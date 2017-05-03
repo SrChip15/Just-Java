@@ -2,10 +2,12 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This app displays an order form to order coffee.
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The number of cups of coffee and coffee price as Class instance variables
      */
-    private int quantity = 0;
+    private int quantity = 1;
     private static final int COFFEE_PRICE = 5;
     private static final int CREAM_PRICE = 1;
     private static final int CHOCOLATE_PRICE = 2;
@@ -24,14 +26,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView orderQuantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        orderQuantityTextView.setText(String.valueOf(quantity));
     }
 
     /**
      * This method is called when the quantity is incremented.
      */
     public void increment(View view) {
-        // maximum mobile order limit set to 20
-        if (quantity < 20) quantity++;
+        // set maximum mobile order limit to 20
+        if (quantity == 20) {
+            Toast toast = Toast.makeText(this, "You cannot make more than 20 mobile coffee orders", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, -90);
+            toast.show();
+            return;
+        }
+        quantity++;
         display(quantity);
     }
 
@@ -40,7 +50,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrement(View view) {
         // prohibit negative quantity
-        if (quantity > 0) quantity--;
+        if (quantity == 1) {
+            Toast toast = Toast.makeText(this, "You cannot have less than 1 coffee", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
+        }
+        quantity--;
         display(quantity);
     }
 
