@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -47,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        EditText userNameEditTextView = (EditText) findViewById(R.id.get_name);
+        String userName = userNameEditTextView.getText().toString();
         CheckBox checkForCream = (CheckBox) findViewById(R.id.cream_checkbox);
         boolean hasWhippedCream = checkForCream.isChecked();
         CheckBox checkForChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean hasChocolate = checkForChocolate.isChecked();
         int total = calculatePrice(hasWhippedCream, hasChocolate);
-        displayMessage(createOrderSummary(total, hasWhippedCream, hasChocolate));
+        displayMessage(createOrderSummary(total, hasWhippedCream, hasChocolate, userName));
     }
 
     /**
@@ -92,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
      * @param hasChocolate a boolean for whether or not the user wants chocolate
      * @return a String that lists the order summary one item per line
      */
-    private String createOrderSummary(int orderTotal, boolean hasCream, boolean hasChocolate) {
+    private String createOrderSummary(int orderTotal, boolean hasCream, boolean hasChocolate, String name) {
         String cream = hasCream? "Yes" : "No";
         String chocolate = hasChocolate ? "Yes" : "No";
-        return "Name: Kaptain Kunal\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
+        return "Name: " + name + "\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
                 "\nThank you!";
     }
 
