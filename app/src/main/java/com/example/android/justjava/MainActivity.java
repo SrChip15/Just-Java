@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -64,14 +66,31 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        // Find the user's name
         EditText userNameEditTextView = (EditText) findViewById(R.id.get_name);
         String userName = userNameEditTextView.getText().toString();
+
+        // Check if user wants Whipped Cream
         CheckBox checkForCream = (CheckBox) findViewById(R.id.cream_checkbox);
         boolean hasWhippedCream = checkForCream.isChecked();
+
+        // Check if user wants Chocolate
         CheckBox checkForChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean hasChocolate = checkForChocolate.isChecked();
+
+        // Compute price and Order Summary
         int total = calculatePrice(hasWhippedCream, hasChocolate);
-        displayMessage(createOrderSummary(total, hasWhippedCream, hasChocolate, userName));
+        String orderSummary = createOrderSummary(total, hasWhippedCream, hasChocolate, userName);
+
+        String subject = "JustJava order for " + userName;
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+            return;
+        }
     }
 
     /**
@@ -83,20 +102,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
-
-    /**
-     *
-     * @param addCream a boolean for whether or not the user wants whipped cream
+     * @param addCream     a boolean for whether or not the user wants whipped cream
      * @param addChocolate a boolean for whether or not the user wants chocolate
      * @return an int that indicates the total price of the coffee
-     *
      */
+
     private int calculatePrice(boolean addCream, boolean addChocolate) {
         int price = quantity * COFFEE_PRICE;
         if (addCream) price += quantity * CREAM_PRICE;
@@ -105,14 +115,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param orderTotal an int that indicates the total price of the coffee
-     * @param addCream a boolean for whether or not the user wants whipped cream
+     * @param orderTotal   an int that indicates the total price of the coffee
+     * @param addCream     a boolean for whether or not the user wants whipped cream
      * @param addChocolate a boolean for whether or not the user wants chocolate
      * @return a String that lists the order summary one item per line
      */
     private String createOrderSummary(int orderTotal, boolean addCream, boolean addChocolate, String name) {
-        String cream = addCream? "Yes" : "No";
+        String cream = addCream ? "Yes" : "No";
         String chocolate = addChocolate ? "Yes" : "No";
         return "Name: " + name + "\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
                 "\nThank you!";
