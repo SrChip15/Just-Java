@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name">JustJava</string>
+    <string name="button_text">commande</string>
+    <string name="choc">Chocolat</string>
+    <string name="cream">Crème fouettée</string>
+    <string name="hint">prénom</string>
+    <string name="quantity">quantité</string>
+    <string name="order_summary_ty">Je vous remercie!</string>
+    <string name="toast_for_large">Vous ne pouvez pas faire plus de 20 commandes de café mobile</string>
+    <string name="toast_for_negative">Vous ne pouvez pas avoir moins de 1 café</string>
+    <string name="top">Garnitures</string>
+    <string name="order_summary_chocolate">Ajouter du chocolat? <xliff:g id="add_chocolate" example="yes">%s</xliff:g></string>
+    <string name="order_summary_cream">Ajouter la crème fouettée? <xliff:g id="add_cream" example="yes">%s</xliff:g></string>
+    <string name="order_summary_name">prénom: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="order_summary_quantity">Nombre de café: <xliff:g id="quantity" example="1">%d</xliff:g></string>
+    <string name="order_summary_total">Total: <xliff:g id="order_total" example="8">%s</xliff:g></string>
+    <string name="subject">JustJava comander pour</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+</resources>

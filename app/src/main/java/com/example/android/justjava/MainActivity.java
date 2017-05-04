@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+
 /**
  * This app displays an order form to order coffee.
  */
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public void increment(View view) {
         // set maximum mobile order limit to 20
         if (quantity == 20) {
-            Toast toast = Toast.makeText(this, "You cannot make more than 20 mobile coffee orders", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, getText(R.string.toast_for_large), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, -90);
             toast.show();
             return;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public void decrement(View view) {
         // prohibit negative quantity
         if (quantity == 1) {
-            Toast toast = Toast.makeText(this, "You cannot have less than 1 coffee", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, getText(R.string.toast_for_negative), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             return;
@@ -82,14 +84,13 @@ public class MainActivity extends AppCompatActivity {
         int total = calculatePrice(hasWhippedCream, hasChocolate);
         String orderSummary = createOrderSummary(total, hasWhippedCream, hasChocolate, userName);
 
-        String subject = "JustJava order for " + userName;
+        String subject = getText(R.string.subject) + " " + userName;
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-            return;
         }
     }
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        quantityTextView.setText(number);
     }
 
     /**
@@ -121,10 +122,14 @@ public class MainActivity extends AppCompatActivity {
      * @return a String that lists the order summary one item per line
      */
     private String createOrderSummary(int orderTotal, boolean addCream, boolean addChocolate, String name) {
-        String cream = addCream ? "Yes" : "No";
-        String chocolate = addChocolate ? "Yes" : "No";
-        return "Name: " + name + "\nQuantity: " + quantity + "\nCream: " + cream + "\nChocolate: " + chocolate + "\nTotal: $" + orderTotal +
-                "\nThank you!";
+        String cream = addCream ? getString(R.string.yes) : getString(R.string.no);
+        String chocolate = addChocolate ? getString(R.string.yes) : getString(R.string.no);
+        return getString(R.string.order_summary_name, name) +
+                "\n" + getString(R.string.order_summary_quantity, quantity) +
+                "\n" + getString(R.string.order_summary_cream, cream) +
+                "\n" + getString(R.string.order_summary_chocolate, chocolate) +
+                "\n" + getString(R.string.order_summary_total, NumberFormat.getCurrencyInstance().format(orderTotal)) +
+                "\n" + getText(R.string.order_summary_ty);
     }
 
 }
