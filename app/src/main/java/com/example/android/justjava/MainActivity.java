@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView orderQuantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        orderQuantityTextView.setText(String.valueOf(quantity));
     }
 
     /**
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText(number);
+        quantityTextView.setText(String.valueOf(number));
     }
 
     /**
