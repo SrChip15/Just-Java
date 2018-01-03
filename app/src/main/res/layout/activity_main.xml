@@ -58,6 +58,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/decrementCoffee"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:onClick="decrement"
@@ -72,6 +73,7 @@
                 android:textColor="@android:color/black" />
 
             <Button
+                android:id="@+id/incrementCoffee"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:onClick="increment"

@@ -13,14 +13,10 @@ import android.widget.Toast;
 
 import java.text.NumberFormat;
 
-/**
- * This app displays an order form to order coffee.
- */
+/** This app displays an order form to order coffee. */
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * The number of cups of coffee and coffee price as Class instance variables
-     */
+    /** The number of cups of coffee and coffee price as Class instance variables */
     private int quantity = 1;
     private static final int COFFEE_PRICE = 5;
     private static final int CREAM_PRICE = 1;
@@ -32,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /**
-     * This method is called when the quantity is incremented.
-     */
+    /** This method is called when the quantity is incremented. */
     public void increment(View view) {
         // set maximum mobile order limit to 20
         if (quantity == 20) {
-            Toast toast = Toast.makeText(this, getText(R.string.toast_for_large), Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(
+                    this,
+                    getText(R.string.toast_for_large),
+                    Toast.LENGTH_SHORT
+            );
             toast.setGravity(Gravity.CENTER, 0, -90);
             toast.show();
             return;
@@ -47,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
         display(quantity);
     }
 
-    /**
-     * This method is called when the quantity is decremented.
-     */
+    /** This method is called when the quantity is decremented. */
     public void decrement(View view) {
         // prohibit negative quantity
         if (quantity == 1) {
-            Toast toast = Toast.makeText(this, getText(R.string.toast_for_negative), Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(
+                    this,
+                    getText(R.string.toast_for_negative),
+                    Toast.LENGTH_SHORT
+            );
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             return;
@@ -62,20 +62,18 @@ public class MainActivity extends AppCompatActivity {
         display(quantity);
     }
 
-    /**
-     * This method is called when the order button is clicked.
-     */
+    /** This method is called when the order button is clicked. */
     public void submitOrder(View view) {
         // Find the user's name
-        EditText userNameEditTextView = (EditText) findViewById(R.id.get_name);
+        EditText userNameEditTextView = findViewById(R.id.get_name);
         String userName = userNameEditTextView.getText().toString();
 
         // Check if user wants Whipped Cream
-        CheckBox checkForCream = (CheckBox) findViewById(R.id.cream_checkbox);
+        CheckBox checkForCream = findViewById(R.id.cream_checkbox);
         boolean hasWhippedCream = checkForCream.isChecked();
 
         // Check if user wants Chocolate
-        CheckBox checkForChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        CheckBox checkForChocolate = findViewById(R.id.chocolate_checkbox);
         boolean hasChocolate = checkForChocolate.isChecked();
 
         // Compute price and Order Summary
@@ -87,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given quantity value on the screen.
      */
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantityTextView.setText(String.valueOf(number));
     }
 
