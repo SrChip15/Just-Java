@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.android.justjava.MainActivity">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.android.justjava.MainActivity">
 
     <LinearLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="16dp"
-        android:paddingTop="8dp">
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        tools:ignore="RtlSymmetry"
+        tools:targetApi="lollipop">
 
         <EditText
             android:id="@+id/get_name"
@@ -20,12 +22,12 @@
             android:hint="@string/hint"
             android:inputType="text"
             android:maxLines="1"
-            android:nextFocusForward="@id/cream_checkbox" />
+            android:nextFocusForward="@id/cream_checkbox"/>
 
         <TextView
             style="@style/HeaderTextStyle"
             android:layout_marginBottom="16dp"
-            android:text="@string/top" />
+            android:text="@string/top"/>
 
         <CheckBox
             android:id="@+id/cream_checkbox"
@@ -34,8 +36,9 @@
             android:layout_marginBottom="8dp"
             android:buttonTint="#68EFAD"
             android:paddingLeft="24dp"
+            android:paddingStart="24dp"
             android:text="@string/cream"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <CheckBox
             android:id="@+id/chocolate_checkbox"
@@ -44,13 +47,14 @@
             android:layout_marginBottom="16dp"
             android:buttonTint="#68EFAD"
             android:paddingLeft="24dp"
+            android:paddingStart="24dp"
             android:text="@string/choc"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             style="@style/HeaderTextStyle"
             android:layout_marginBottom="16dp"
-            android:text="@string/quantity" />
+            android:text="@string/quantity"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +66,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:onClick="decrement"
-                android:text="@string/decrement" />
+                android:text="@string/decrement"/>
 
             <TextView
                 android:id="@+id/quantity_text_view"
@@ -70,23 +74,24 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/initial_order_quantity"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"/>
 
             <Button
                 android:id="@+id/incrementCoffee"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:onClick="increment"
-                android:text="@string/increment" />
+                android:text="@string/increment"/>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/orderSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:onClick="submitOrder"
-            android:text="@string/button_text" />
+            android:text="@string/button_text"/>
 
     </LinearLayout>
 
